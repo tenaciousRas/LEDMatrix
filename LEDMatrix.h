@@ -1,5 +1,7 @@
 #ifndef LEDMatrix_h
 #define LEDMatrix_h
+#include "lib/fastled/firmware/FastLED.h"
+FASTLED_USING_NAMESPACE
 
 enum MatrixType_t { HORIZONTAL_MATRIX,
                     VERTICAL_MATRIX,
