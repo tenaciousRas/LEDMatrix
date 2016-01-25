@@ -1,6 +1,6 @@
-#include <FastLED.h>
+#include <FastLED/FastLED.h>
 
-#include <LEDMatrix.h>
+#include <LEDMatrix/LEDMatrix.h>
 
 // Change the next 6 defines to match your matrix type and size
 
@@ -44,7 +44,7 @@ void loop()
   uint8_t h;
 
   FastLED.clear();
-  
+
   h = hue;
   if (counter < 1125)
   {
@@ -92,4 +92,3 @@ void loop()
     counter = 0;
   FastLED.show();
 }
-

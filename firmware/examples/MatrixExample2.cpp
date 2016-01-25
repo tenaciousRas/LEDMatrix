@@ -1,6 +1,6 @@
-#include <FastLED.h>
+#include <FastLED/FastLED.h>
 
-#include <LEDMatrix.h>
+#include <LEDMatrix/LEDMatrix.h>
 
 // Change the next 6 defines to match your matrix type and size
 
@@ -83,4 +83,3 @@ void loop()
   FastLED.show();
   delay(20);
 }
-
