@@ -1,6 +1,7 @@
-#include <FastLED/FastLED.h>
+#include "FastLED/FastLED.h"
 
-#include <LEDMatrix/LEDMatrix.h>
+#include "LEDMatrix/LEDMatrix.h"
+
 
 // Change the next 6 defines to match your matrix type and size
 
@@ -12,14 +13,14 @@
 #define MATRIX_HEIGHT  10  // Set this negative if physical led 0 is opposite to where you want logical 0
 #define MATRIX_TYPE    HORIZONTAL_MATRIX  // See top of LEDMatrix.h for matrix wiring types
 
-cLEDMatrix<MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_TYPE> leds;
+cLEDMatrix* leds = new cLEDMatrix(MATRIX_TYPE, MATRIX_WIDTH, MATRIX_HEIGHT);
 
 uint8_t hue;
 int16_t counter;
 
 void setup()
 {
-  FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>(leds[0], leds.Size());
+  FastLED.addLeds<CHIPSET, LED_PIN, COLOR_ORDER>((*leds)[0], leds->Size());
   FastLED.setBrightness(127);
   FastLED.clear(true);
   delay(500);
@@ -49,18 +50,18 @@ void loop()
   if (counter < 1125)
   {
     // ** Fill LED's with diagonal stripes
-    for (x=0; x<(leds.Width()+leds.Height()); ++x)
+    for (x=0; x<(leds->Width()+leds->Height()); ++x)
     {
-      leds.DrawLine(x - leds.Height(), leds.Height() - 1, x, 0, CHSV(h, 255, 255));
+      leds->DrawLine(x - leds->Height(), leds->Height() - 1, x, 0, CHSV(h, 255, 255));
       h+=16;
     }
   }
   else
   {
     // ** Fill LED's with horizontal stripes
-    for (y=0; y<leds.Height(); ++y)
+    for (y=0; y<leds->Height(); ++y)
     {
-      leds.DrawLine(0, y, leds.Width() - 1, y, CHSV(h, 255, 255));
+      leds->DrawLine(0, y, leds->Width() - 1, y, CHSV(h, 255, 255));
       h+=16;
     }
   }
@@ -69,23 +70,23 @@ void loop()
   if (counter < 125)
     ;
   else if (counter < 375)
-    leds.HorizontalMirror();
+    leds->HorizontalMirror();
   else if (counter < 625)
-    leds.VerticalMirror();
+    leds->VerticalMirror();
   else if (counter < 875)
-    leds.QuadrantMirror();
+    leds->QuadrantMirror();
   else if (counter < 1125)
-    leds.QuadrantRotateMirror();
+    leds->QuadrantRotateMirror();
   else if (counter < 1250)
     ;
   else if (counter < 1500)
-    leds.TriangleTopMirror();
+    leds->TriangleTopMirror();
   else if (counter < 1750)
-    leds.TriangleBottomMirror();
+    leds->TriangleBottomMirror();
   else if (counter < 2000)
-    leds.QuadrantTopTriangleMirror();
+    leds->QuadrantTopTriangleMirror();
   else if (counter < 2250)
-    leds.QuadrantBottomTriangleMirror();
+    leds->QuadrantBottomTriangleMirror();
 
   counter++;
   if (counter >= 2250)
